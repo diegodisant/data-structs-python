@@ -25,7 +25,7 @@ class SingleList[T](CollectionInterface[T]):
   def contains(self, value: T) -> bool:
     pass
 
-  def print() -> None:
+  def print(self) -> None:
     pass
 
   def represent[RT](self) -> RT:

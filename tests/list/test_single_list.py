@@ -1,18 +1,18 @@
 from structs.list.single.list import SingleList
 
 def test_zeroed_single_list() -> None:
-  list = SingleList()
+  single_list = SingleList()
 
-  assert list.is_empty() == True
-  assert list.calc_size() == 0
+  assert single_list.is_empty() is True
+  assert single_list.calc_size() == 0
 
 def test_single_list_insertion() -> None:
-  list = SingleList[int]()
+  single_list = SingleList[int]()
 
-  list.insert(1)
-  list.insert(2)
-  list.insert(3)
-  list.insert(4)
-  list.insert(5)
+  single_list.insert(1)
+  single_list.insert(2)
+  single_list.insert(3)
+  single_list.insert(4)
+  single_list.insert(5)
 
-  assert list.calc_size() == 5
+  assert single_list.calc_size() == 5
