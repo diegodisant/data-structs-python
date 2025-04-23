@@ -12,6 +12,6 @@ pyenv install 3.13.1t
 virtualenv -p python3.13.1 venv
 pip3 install requirements.txt
 
-./set-path.py
-./run-tests.py
+./set-path.sh
+./run-tests.sh
 ```
