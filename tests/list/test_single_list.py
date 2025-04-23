@@ -1,4 +1,4 @@
-from structs.list.single.list import SingleList
+from structs.list.single import SingleList
 
 def test_zeroed_single_list() -> None:
   single_list = SingleList()
