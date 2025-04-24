@@ -1,6 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import Generator
-
 class CollectionInterface[T](ABC):
   @abstractmethod
   def insert(self, value: T) -> None:

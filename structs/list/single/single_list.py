@@ -1,4 +1,3 @@
-from typing import Generator
 from structs.collection import CollectionInterface
 from structs.list.single.node import SingleNode
 
