@@ -15,10 +15,6 @@ class CollectionInterface[T](ABC):
     """ Verifies if a value exists in structure"""
 
   @abstractmethod
-  def iterate(self) -> Generator:
-    """ Iterate the structure via generator """
-
-  @abstractmethod
   def print(self) -> None:
     """Prints structure with string representation"""
 

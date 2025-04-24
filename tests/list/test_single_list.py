@@ -1,4 +1,3 @@
-from tests.profiler import profile_test
 from structs.list.single import SingleList
 
 def test_zeroed_single_list() -> None:
@@ -29,7 +28,6 @@ def test_contains_success() -> None:
 
   assert single_list.contains(1) is True
 
-@profile_test
 def test_contains_failed() -> None:
   single_list = SingleList[int]()
 
@@ -40,3 +38,12 @@ def test_contains_failed() -> None:
   single_list.insert(5)
 
   assert single_list.contains(-1) is False
+
+def test_search_in_1m_items() -> None:
+  seeked_number = 2
+  single_list = SingleList[int]()
+
+  for number in range(1, 10**6):
+    single_list.insert(number)
+
+  assert single_list.contains(seeked_number) is True
