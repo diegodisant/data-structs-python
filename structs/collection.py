@@ -1,25 +1,30 @@
 from abc import ABC, abstractmethod
+from typing import Generator
 
 class CollectionInterface[T](ABC):
   @abstractmethod
   def insert(self, value: T) -> None:
-    """Inserts a new value in the data structure"""
+    """Inserts a new value in the structure"""
 
   @abstractmethod
   def delete(self, value: T) -> bool:
-    """Deletes a value in the data structure"""
+    """Deletes a value in the structure"""
 
   @abstractmethod
   def contains(self, value: T) -> bool:
-    """ Verifies if a value exists in data structure"""
+    """ Verifies if a value exists in structure"""
+
+  @abstractmethod
+  def iterate(self) -> Generator:
+    """ Iterate the structure via generator """
 
   @abstractmethod
   def print(self) -> None:
-    """Prints datastructure with string representation"""
+    """Prints structure with string representation"""
 
   @abstractmethod
   def represent[RT](self) -> RT:
-    """Pepresents the data structure with desired format"""
+    """Pepresents the structure with desired format"""
 
   @abstractmethod
   def is_empty(self) -> bool:

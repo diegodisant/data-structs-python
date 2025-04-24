@@ -8,4 +8,6 @@ platformdirs==4.3.7
 pluggy==1.5.0
 pylint==3.3.6
 pytest==8.3.5
+snakeviz==2.2.2
 tomlkit==0.13.2
+tornado==6.4.2

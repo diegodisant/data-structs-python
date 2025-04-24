@@ -1,29 +1,45 @@
+from typing import Generator
 from structs.collection import CollectionInterface
 from structs.list.single.node import SingleNode
 
 class SingleList[T](CollectionInterface[T]):
   nodes_counter = 0
-  current_node: SingleNode[T] = None
+  header_node: SingleNode[T] = None
   record_node: SingleNode[T] = None
 
   def insert(self, value: T) -> None:
     self.nodes_counter += 1
 
     if self.is_empty():
-      self.current_node = SingleNode(value)
-      self.current_node.value = value
+      self.header_node = SingleNode(value)
 
       return
 
-    self.record_node = SingleNode(value, self.current_node)
+    self.record_node = SingleNode(value, self.header_node)
 
-    self.current_node = self.record_node
+    self.header_node = self.record_node
 
   def delete(self, value: T) -> bool:
     pass
 
   def contains(self, value: T) -> bool:
-    pass
+    iter_node = self.record_node.copy()
+
+    while iter_node is not None:
+      if iter_node.value == value:
+        return True
+
+      iter_node = iter_node.next_node
+
+    return False
+
+  def iterate(self) -> Generator:
+    iter_node = self.record_node.copy()
+
+    while iter_node is not None:
+      yield iter_node
+
+      iter_node = iter_node.next_node
 
   def print(self) -> None:
     pass
@@ -32,7 +48,7 @@ class SingleList[T](CollectionInterface[T]):
     pass
 
   def is_empty(self) -> bool:
-    return self.current_node is None
+    return self.header_node is None
 
   def calc_size(self) -> int:
     return self.nodes_counter
