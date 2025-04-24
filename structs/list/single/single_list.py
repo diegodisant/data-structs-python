@@ -4,7 +4,6 @@ from structs.list.single.node import SingleNode
 class SingleList[T](CollectionInterface[T]):
   nodes_counter = 0
   header_node: SingleNode[T] = None
-  record_node: SingleNode[T] = None
 
   def insert(self, value: T) -> None:
     self.nodes_counter += 1
@@ -14,15 +13,38 @@ class SingleList[T](CollectionInterface[T]):
 
       return
 
-    self.record_node = SingleNode(value, self.header_node)
-
-    self.header_node = self.record_node
+    self.header_node = SingleNode(value, self.header_node)
 
   def delete(self, value: T) -> bool:
-    pass
+    if self.is_empty():
+      return False
+
+    prev_node: SingleNode[T] = None
+    iter_node = self.header_node.copy()
+
+    if iter_node.value == value:
+      self.nodes_counter -= 1
+      self.header_node = iter_node.next_node
+
+      return True
+
+    while iter_node is not None:
+      if iter_node.value == value:
+        self.nodes_counter -= 1
+        prev_node.next_node = iter_node.next_node
+
+        if self.nodes_counter == 1:
+          self.header_node = prev_node
+
+        return True
+
+      prev_node = iter_node
+      iter_node = iter_node.next_node
+
+    return False
 
   def contains(self, value: T) -> bool:
-    iter_node = self.record_node.copy()
+    iter_node = self.header_node.copy()
 
     while iter_node is not None:
       if iter_node.value == value:
@@ -32,8 +54,30 @@ class SingleList[T](CollectionInterface[T]):
 
     return False
 
-  def print(self) -> None:
-    pass
+  def print(self, message: str = "") -> None:
+    print()
+    print(message)
+
+    if self.is_empty():
+      print('[]')
+
+      return
+
+    iter_node = self.header_node.copy()
+
+    print('[', end='')
+
+    while iter_node is not None:
+      if iter_node.next_node is None:
+        print(iter_node.value, end='')
+
+        break
+
+      print(iter_node.value, end=', ')
+
+      iter_node = iter_node.next_node
+
+    print(']')
 
   def represent[RT](self) -> RT:
     pass

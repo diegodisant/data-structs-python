@@ -10,10 +10,10 @@ class CollectionInterface[T](ABC):
 
   @abstractmethod
   def contains(self, value: T) -> bool:
-    """ Verifies if a value exists in structure"""
+    """ Verifies if a value exists in structure and returns the node"""
 
   @abstractmethod
-  def print(self) -> None:
+  def print(self, message: str = "") -> None:
     """Prints structure with string representation"""
 
   @abstractmethod
