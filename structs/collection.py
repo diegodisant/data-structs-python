@@ -13,10 +13,6 @@ class CollectionInterface[T](ABC):
     """ Verifies if a value exists in structure and returns the node"""
 
   @abstractmethod
-  def print(self, message: str = "") -> None:
-    """Prints structure with string representation"""
-
-  @abstractmethod
   def represent[RT](self) -> RT:
     """Pepresents the structure with desired format"""
 
