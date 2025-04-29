@@ -20,21 +20,33 @@ class SingleList[T](CollectionInterface[T], Printable):
       return False
 
     prev_node: SingleNode[T] = None
-    iter_node = self.header_node.copy()
-
-    if iter_node.value == value:
-      self.nodes_counter -= 1
-      self.header_node = iter_node.next_node
-
-      return True
+    next_node: SingleNode[T] = None
+    iter_node = self.header_node
 
     while iter_node is not None:
       if iter_node.value == value:
-        self.nodes_counter -= 1
-        prev_node.next_node = iter_node.next_node
+        if prev_node is None and iter_node.next_node is None:
+          self.nodes_counter = 0
+          self.header_node = None
 
-        if self.nodes_counter == 1:
-          self.header_node = prev_node
+          return True
+
+        self.nodes_counter -= 1
+
+        next_node = iter_node.next_node
+
+        if prev_node is not None and next_node is not None:
+          prev_node.next_node = next_node
+
+          return True
+
+        if next_node is not None and prev_node is None:
+          self.header_node = iter_node.next_node
+
+          return True
+
+        if prev_node is not None and next_node is None:
+          prev_node.next_node = None
 
         return True
 
@@ -44,7 +56,7 @@ class SingleList[T](CollectionInterface[T], Printable):
     return False
 
   def contains(self, value: T) -> bool:
-    iter_node = self.header_node.copy()
+    iter_node = self.header_node
 
     while iter_node is not None:
       if iter_node.value == value:
@@ -63,7 +75,7 @@ class SingleList[T](CollectionInterface[T], Printable):
 
       return
 
-    iter_node = self.header_node.copy()
+    iter_node = self.header_node
 
     print('[', end='')
 

@@ -48,23 +48,6 @@ def test_search_in_1m_items() -> None:
 
   assert single_list.contains(seeked_number) is True
 
-def test_single_list_delete_in_head() -> None:
-  single_list = SingleList[int]()
-
-  single_list.insert(1)
-  single_list.insert(2)
-  single_list.insert(3)
-  single_list.insert(4)
-  single_list.insert(5)
-
-  single_list.print("original list")
-
-  single_list.delete(5)
-
-  single_list.print("head element deleted")
-
-  assert single_list.calc_size() == 4
-
 def test_single_list_delete_in_middle() -> None:
   single_list = SingleList[int]()
 
@@ -74,11 +57,28 @@ def test_single_list_delete_in_middle() -> None:
   single_list.insert(4)
   single_list.insert(5)
 
-  single_list.print("original list")
+  single_list.print("before deletion")
 
   single_list.delete(3)
 
-  single_list.print("middle element deleted")
+  single_list.print("after deletion")
+
+  assert single_list.calc_size() == 4
+
+def test_single_list_delete_in_head() -> None:
+  single_list = SingleList[int]()
+
+  single_list.insert(1)
+  single_list.insert(2)
+  single_list.insert(3)
+  single_list.insert(4)
+  single_list.insert(5)
+
+  single_list.print("before deletion")
+
+  single_list.delete(5)
+
+  single_list.print("after deletion")
 
   assert single_list.calc_size() == 4
 
@@ -91,11 +91,11 @@ def test_single_list_delete_in_tail() -> None:
   single_list.insert(4)
   single_list.insert(5)
 
-  single_list.print("original list")
+  single_list.print("before deletion")
 
   single_list.delete(1)
 
-  single_list.print("tail element deleted")
+  single_list.print("after deletion")
 
   assert single_list.calc_size() == 4
 
@@ -106,19 +106,13 @@ def test_single_list_delete_all_from_tail() -> None:
   single_list.insert(2)
   single_list.insert(3)
 
-  single_list.print("original list")
+  single_list.print("before deletion")
 
   single_list.delete(1)
-
-  single_list.print("deleted third element")
-
   single_list.delete(2)
-
-  single_list.print("deleted second element")
-
   single_list.delete(3)
 
-  single_list.print("deleted first element")
+  single_list.print("after deletion")
 
   assert single_list.calc_size() == 0
 
@@ -129,18 +123,12 @@ def test_delete_all_from_head() -> None:
   single_list.insert(2)
   single_list.insert(3)
 
-  single_list.print("original list")
+  single_list.print("before deletion")
 
   single_list.delete(3)
-
-  single_list.print("deleted first element")
-
   single_list.delete(2)
-
-  single_list.print("deleted second element")
-
   single_list.delete(1)
 
-  single_list.print("deleted third element")
+  single_list.print("after deletion")
 
   assert single_list.calc_size() == 0

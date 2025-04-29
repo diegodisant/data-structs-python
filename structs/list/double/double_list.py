@@ -34,22 +34,42 @@ class DoubleList[T](CollectionInterface[T], Printable):
     if self.is_empty():
       return False
 
-    prev_node: DoubleNode[T] = None
-    iter_node = self.header_node.copy()
+    prev_iter_node: DoubleNode[T] = None
+    next_iter_node: DoubleNode[T] = None
+    iter_node = self.header_node
 
     while iter_node is not None:
       if iter_node.value == value:
+        if prev_iter_node is None and iter_node.next_node is None:
+          self.nodes_counter = 0
+          self.header_node = None
+          self.tail_node = None
+
+          return True
+
         self.nodes_counter -= 1
 
-        if prev_node is not None:
-          prev_node.next_node = iter_node.next_node
+        next_iter_node = iter_node.next_node
 
-        if self.nodes_counter == 1:
-          self.header_node = prev_node
+        if prev_iter_node is not None and next_iter_node is not None:
+          prev_iter_node.next_node = next_iter_node
+          next_iter_node.prev_node = prev_iter_node
+
+          return True
+
+        if next_iter_node is not None and prev_iter_node is None:
+          next_iter_node.prev_node = None
+          self.header_node = next_iter_node
+
+          return True
+
+        if prev_iter_node is not None and next_iter_node is None:
+          prev_iter_node.next_node = None
+          self.tail_node = prev_iter_node
 
         return True
 
-      prev_node = iter_node
+      prev_iter_node = iter_node
       iter_node = iter_node.next_node
 
   def contains(self, value: T, reverse: bool = False) -> bool:
@@ -60,9 +80,9 @@ class DoubleList[T](CollectionInterface[T], Printable):
     selected_node: DoubleNode[T] = None
 
     if reverse:
-      iter_node = self.header_node.copy()
+      iter_node = self.header_node
     else:
-      iter_node = self.tail_node.copy()
+      iter_node = self.tail_node
 
     while iter_node is not None:
       if iter_node.value == value:
@@ -103,9 +123,9 @@ class DoubleList[T](CollectionInterface[T], Printable):
     selected_node: DoubleNode[T] = None
 
     if reverse:
-      iter_node = self.header_node.copy()
+      iter_node = self.header_node
     else:
-      iter_node = self.tail_node.copy()
+      iter_node = self.tail_node
 
     print('[ ', end='')
 

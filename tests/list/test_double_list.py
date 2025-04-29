@@ -64,3 +64,65 @@ def test_double_list_parallel_search_in_1m_items() -> None:
   search_result = double_list.parallel_search(seek_number)
 
   assert search_result is True
+
+def test_double_list_delete_middle() -> None:
+  double_list = DoubleList[int]()
+
+  double_list.insert(1)
+  double_list.insert(2)
+  double_list.insert(3)
+
+  double_list.print("before deletion", reverse=True)
+
+  double_list.delete(2)
+
+  double_list.print("after deletion", reverse=True)
+
+  assert double_list.calc_size() == 2
+
+def test_double_list_delete_tail() -> None:
+  double_list = DoubleList[int]()
+
+  double_list.insert(1)
+  double_list.insert(2)
+  double_list.insert(3)
+
+  double_list.print("before deletion", reverse=True)
+
+  double_list.delete(1)
+
+  double_list.print("after deletion", reverse=True)
+
+  assert double_list.calc_size() == 2
+
+def test_double_list_delete_head() -> None:
+  double_list = DoubleList[int]()
+
+  double_list.insert(1)
+  double_list.insert(2)
+  double_list.insert(3)
+
+  double_list.print("before deletion")
+
+  double_list.delete(3)
+
+  double_list.print("after deletion")
+
+  assert double_list.calc_size() == 2
+
+def test_double_list_delete_all() -> None:
+  double_list = DoubleList[int]()
+
+  double_list.insert(1)
+  double_list.insert(2)
+  double_list.insert(3)
+ 
+  double_list.print("before deletion")
+
+  double_list.delete(1)
+  double_list.delete(2)
+  double_list.delete(3)
+
+  double_list.print("after deletion")
+
+  assert double_list.calc_size() == 0
