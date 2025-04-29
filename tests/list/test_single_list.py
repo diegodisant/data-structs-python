@@ -17,7 +17,7 @@ def test_single_list_insertion() -> None:
 
   assert single_list.calc_size() == 5
 
-def test_contains_success() -> None:
+def test_single_list_contains_success() -> None:
   single_list = SingleList[int]()
 
   single_list.insert(1)
@@ -28,7 +28,7 @@ def test_contains_success() -> None:
 
   assert single_list.contains(1) is True
 
-def test_contains_failed() -> None:
+def test_single_list_contains_failed() -> None:
   single_list = SingleList[int]()
 
   single_list.insert(1)
@@ -48,7 +48,7 @@ def test_search_in_1m_items() -> None:
 
   assert single_list.contains(seeked_number) is True
 
-def test_delete_in_head() -> None:
+def test_single_list_delete_in_head() -> None:
   single_list = SingleList[int]()
 
   single_list.insert(1)
@@ -65,7 +65,7 @@ def test_delete_in_head() -> None:
 
   assert single_list.calc_size() == 4
 
-def test_delete_in_middle() -> None:
+def test_single_list_delete_in_middle() -> None:
   single_list = SingleList[int]()
 
   single_list.insert(1)
@@ -82,7 +82,7 @@ def test_delete_in_middle() -> None:
 
   assert single_list.calc_size() == 4
 
-def test_delete_in_tail() -> None:
+def test_single_list_delete_in_tail() -> None:
   single_list = SingleList[int]()
 
   single_list.insert(1)
@@ -99,7 +99,7 @@ def test_delete_in_tail() -> None:
 
   assert single_list.calc_size() == 4
 
-def test_delete_all_from_tail() -> None:
+def test_single_list_delete_all_from_tail() -> None:
   single_list = SingleList[int]()
 
   single_list.insert(1)

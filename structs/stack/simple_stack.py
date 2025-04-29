@@ -1,8 +1,7 @@
 from structs import Printable
-from structs.list.single.node import SingleNode
-from structs.stack.operations import StackInterface
+from structs.list.single import SingleNode
 from structs.list.single import SingleList
-
+from structs.stack.operations import StackInterface
 class Stack[T](StackInterface[T], Printable):
   single_list: SingleList[T] = None
 

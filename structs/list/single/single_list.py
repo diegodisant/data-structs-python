@@ -1,6 +1,6 @@
 from structs import Printable
 from structs import CollectionInterface
-from structs.list.single.node import SingleNode
+from structs.list.single import SingleNode
 class SingleList[T](CollectionInterface[T], Printable):
   nodes_counter = 0
   header_node: SingleNode[T] = None
@@ -59,7 +59,7 @@ class SingleList[T](CollectionInterface[T], Printable):
     print(message)
 
     if self.is_empty():
-      print('[]')
+      print('[  ]')
 
       return
 
