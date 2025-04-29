@@ -13,8 +13,10 @@ class Stack[T](StackInterface[T], Printable):
       return None
 
     self.single_list.nodes_counter -= 1
+
     top_node: SingleNode[T] = self.single_list.header_node
     node_value: T = top_node.value
+
     self.single_list.header_node = top_node.next_node
 
     return node_value
@@ -31,7 +33,7 @@ class Stack[T](StackInterface[T], Printable):
     print()
     print(message)
 
-    top_node: SingleNode[T] = self.single_list.header_node.copy()
+    top_node: SingleNode[T] = self.single_list.header_node
 
     while top_node is not None:
       print(f"[ {top_node.value} ]")

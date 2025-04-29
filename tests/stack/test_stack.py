@@ -31,14 +31,8 @@ def test_stack() -> None:
   assert top_value is not None
   assert top_value == 1
 
-def test_stack_push_1m_elements() -> None:
-  simple_stack = Stack[int]()
-
-  for number in range(1, 10**6):
-    simple_stack.push(number)
-
-def test_stack_pop_1m_elements() -> None:
-  last_value: int = 0
+def test_stack_with_1m_elements() -> None:
+  last_value = 0
   numbers_till = 10**6
   simple_stack = Stack[int]()
 
