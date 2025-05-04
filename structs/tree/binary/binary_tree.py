@@ -37,9 +37,11 @@ class BinaryTree[T](BinaryTreeInterface[T], Printable):
   def calc_size(self) -> int:
     return self.nodes_counter
 
+  # TODO: research how to calculate the depth with nodes size
   def calc_depth(self) -> int:
     return (self.nodes_counter // 2) + (self.nodes_counter % 2)
 
+  # TODO: define printing algo for binary tree
   def print(self, message: str = "") -> None:
     print()
     print(message)
