@@ -31,7 +31,23 @@ class Queue[T](QueueInterface[T], Printable):
 
   # TODO: implement stack printing
   def print(self, message: str = "") -> None:
-    pass
+    print()
+    print(message)
+
+    if self.is_empty():
+      print('[ ]')
+
+      return
+
+    iter_node: DoubleNode[T] = self.double_list.tail_node
+
+    while iter_node is not None:
+      print(' ', end='')
+      print(f"[{iter_node.value}]", end='')
+
+      iter_node = iter_node.prev_node
+
+    print()
 
   def at_start(self) -> T:
     return self.double_list.tail_node.value

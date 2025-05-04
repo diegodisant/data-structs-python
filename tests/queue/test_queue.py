@@ -27,7 +27,11 @@ def test_dequeue() -> None:
   simple_queue.enqueue(4)
   simple_queue.enqueue(5)
 
+  simple_queue.print("before dequeue")
+
   value = simple_queue.dequeue()
+
+  simple_queue.print("after dequeue")
 
   assert value == 1
   assert simple_queue.calc_size() == 4
