@@ -1,6 +1,8 @@
+from typing import Generator
+
 from structs import Printable
 from structs.tree.node import TreeNode
-from structs.tree.operations import TreeInterface
+from structs.tree.operations import TraverseOrder, TreeInterface
 
 class BinaryTree[T](TreeInterface[T], Printable):
   depth: int = 0
@@ -41,6 +43,10 @@ class BinaryTree[T](TreeInterface[T], Printable):
   def calc_depth(self) -> int:
     # use recursivity to calc the depth
     return self.depth
+
+  def traverse(self, order: TraverseOrder = TraverseOrder.IN_ORDER) -> Generator[T]:
+    # TODO: define the traverse orders
+    pass
 
   # TODO: define printing algo for binary tree
   def print(self, message: str = "") -> None:
