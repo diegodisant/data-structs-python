@@ -1,9 +1,9 @@
 from abc import ABC, abstractmethod
-from structs.tree.binary.node import BinaryTreeNode
+from structs.tree.node import TreeNode
 
-class BinaryTreeInterface[T](ABC):
+class TreeInterface[T](ABC):
   @abstractmethod
-  def insert(self, value: T, current_node: BinaryTreeNode[T] = None) -> None:
+  def insert(self, value: T, current_node: TreeNode[T] | None = None) -> None:
     """Inserts one element in binary tree"""
 
   @abstractmethod
