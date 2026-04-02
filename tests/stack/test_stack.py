@@ -43,3 +43,45 @@ def test_stack_with_1m_elements() -> None:
     last_value = simple_stack.pop()
 
   assert last_value == 1
+
+def test_check_non_valid_expression() -> None:
+  expression = '{[(<<<a expression>>)]}'
+  stack = Stack[str]()
+  open_symbols = ['{', '[', '(', '<']
+  close_symbols = ['>', ')', ']', '}']
+  expression_symbols = [*open_symbols, *close_symbols]
+
+  open_symbols_counter = 0
+  close_symbols_counter = 0
+
+  for symbol in expression:
+    if symbol not in expression_symbols:
+      print(f'ignoring not expression symbol: {symbol}')
+
+      continue
+
+    print(f'pushing symbol in the stack: {symbol}')
+
+    stack.push(symbol)
+
+  stack_value: str | None = stack.pop()
+
+  while stack_value is not None:
+    if stack_value in open_symbols:
+      open_symbols_counter += 1
+
+    if stack_value in close_symbols:
+      close_symbols_counter += 1
+
+    stack_value = stack.pop()
+
+  if close_symbols_counter != open_symbols_counter:
+    print(f'Error open expression symbols doesnt match closed expression symbols')
+
+  if close_symbols_counter > open_symbols_counter:
+    print(f'There is more closed symbols, please check the enclosure')
+
+  if open_symbols_counter > close_symbols_counter:
+    print(f'There is more open symbols, please check the openings')
+
+  assert close_symbols_counter < open_symbols_counter
