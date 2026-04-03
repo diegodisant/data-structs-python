@@ -9,11 +9,15 @@ class BinaryTree[T](TreeInterface[T], Printable):
   nodes_counter: int = 0
   root_node: TreeNode[T] | None = None
 
+  # TODO: avoid recursion for adding instead O(n * h) do O(n)
   def insert(self, value: T, current_node: TreeNode[T] | None = None) -> None:
     if self.root_node is None:
       self.nodes_counter += 1
       self.root_node = TreeNode(value)
 
+      return
+
+    if self.root_node.value == value:
       return
 
     if current_node is None:
