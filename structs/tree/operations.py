@@ -22,5 +22,9 @@ class TreeInterface[T](ABC):
     """Calculates the deep of tree based on node size"""
 
   @abstractmethod
-  def traverse(self, order: TraverseOrder = TraverseOrder.IN_ORDER) -> Generator[T]:
+  def traverse(
+    self,
+    order: TraverseOrder = TraverseOrder.IN_ORDER,
+    node: TreeNode | None = None,
+  ) -> Generator[T]:
     """Traverse the binary tree with given order"""

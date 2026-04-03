@@ -25,7 +25,7 @@ class BinaryTree[T](TreeInterface[T], Printable):
       current_node.left_node = TreeNode(value)
 
       return
-    elif current_node.left_node is not None:
+    elif current_node.left_node is not None and value < current_node.value:
       return self.insert(value, current_node.left_node)
 
     if current_node.right_node is None and value > current_node.value:
@@ -34,19 +34,50 @@ class BinaryTree[T](TreeInterface[T], Printable):
       current_node.right_node = TreeNode(value)
 
       return
-    elif current_node.right_node is not None:
+    elif current_node.right_node is not None and value > current_node.value:
       return self.insert(value, current_node.right_node)
 
   def calc_size(self) -> int:
     return self.nodes_counter
 
   def calc_depth(self) -> int:
-    # use recursivity to calc the depth
+    # size
     return self.depth
 
-  def traverse(self, order: TraverseOrder = TraverseOrder.IN_ORDER) -> Generator[T]:
-    # TODO: define the traverse orders
-    pass
+  def traverse(
+    self,
+    order: TraverseOrder = TraverseOrder.IN_ORDER,
+    node: TreeNode | None = None,
+  ) -> Generator[T]:
+    if node is None:
+      node = self.root_node
+
+    if order == TraverseOrder.PRE_ORDER:
+      yield node.value
+
+      if node.left_node is not None:
+        yield from self.traverse(order, node.left_node)
+
+      if node.right_node is not None:
+        yield from self.traverse(order, node.right_node)
+
+    if order == TraverseOrder.IN_ORDER:
+      if node.left_node is not None:
+        yield from self.traverse(order, node.left_node)
+
+      yield node.value
+
+      if node.right_node is not None:
+        yield from self.traverse(order, node.right_node)
+
+    if order == TraverseOrder.POST_ORDER:
+      if node.left_node is not None:
+        yield from self.traverse(order, node.left_node)
+
+      if node.right_node is not None:
+        yield from self.traverse(order, node.right_node)
+
+      yield node.value
 
   # TODO: define printing algo for binary tree
   def print(self, message: str = "") -> None:
