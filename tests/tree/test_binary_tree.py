@@ -1,3 +1,5 @@
+from random import randint
+from tests.profiler import profile_test
 from structs.tree import BinaryTree
 from structs.tree.operations import TraverseOrder
 
@@ -98,3 +100,20 @@ def test_binary_tree_post_order_traverse() -> None:
     current_traversal.append(value)
 
   assert expected_traversal == current_traversal
+
+
+def test_traverse_in_order_1k_items() -> None:
+  tree = BinaryTree[int]()
+
+  max_limit = 1000
+  random_root_value = randint(max_limit // 2, max_limit)
+
+  tree.insert(random_root_value)
+
+  for value in range(1, max_limit):
+    tree.insert(value)
+
+  for value in tree.traverse():
+    print(f'{value}, ')
+
+  print()
