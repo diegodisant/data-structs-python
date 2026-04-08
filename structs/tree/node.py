@@ -2,11 +2,22 @@ from typing import Self
 
 class TreeNode[T]:
   value: T
-  left_node: Self | None
-  right_node: Self | None
 
-  def __init__(self, value: T, left_node: Self | None = None, right_node: Self | None = None):
+  left_node: Self | None = None
+  prev_left_node: Self | None = None
+
+  right_node: Self | None = None
+  prev_right_node: Self | None = None
+
+  def __init__(self, value: T):
     self.value = value
-    self.left_node = left_node
-    self.right_node = right_node
+
+  def less(self, current_value: T) -> bool:
+    current_number = self.numerical_value(current_value)
+    actual_number = self.numerical_value(self.value)
+
+    return current_number < actual_number
+
+  def numerical_value(self, value: T) -> int | float:
+    return int(value) # pyright: ignore[reportArgumentType]
 

@@ -10,7 +10,7 @@ class TraverseOrder(Enum):
 
 class TreeInterface[T](ABC):
   @abstractmethod
-  def insert(self, value: T, current_node: TreeNode[T] | None = None) -> None:
+  def insert(self, value: T) -> None:
     """Inserts one element in binary tree"""
 
   @abstractmethod
