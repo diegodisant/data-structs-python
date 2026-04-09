@@ -4,10 +4,8 @@ class TreeNode[T]:
   value: T
 
   left_node: Self | None = None
-  prev_left_node: Self | None = None
-
   right_node: Self | None = None
-  prev_right_node: Self | None = None
+  backref_node: Self | None = None
 
   def __init__(self, value: T):
     self.value = value
