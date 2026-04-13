@@ -25,8 +25,6 @@ class BinaryTree[T](TreeInterface[T], Printable):
     right_node: TreeNode[T] | None = None
     has_less_value: bool = False
 
-    # TODO: check if node adding follow the main branch
-    # without traverse in children
     traversed_in_left: bool = False
     traversed_in_right: bool = False
 
@@ -84,10 +82,9 @@ class BinaryTree[T](TreeInterface[T], Printable):
       node = self.side_right_node
 
     while node is not None:
-      if order == TraverseOrder.IN_ORDER:
-        yield node.value
+      yield node.value
 
-        node = node.backref_node
+      node = node.backref_node
 
   def calc_size(self) -> int:
     return self.nodes_counter
