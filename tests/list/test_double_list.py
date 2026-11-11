@@ -1,3 +1,4 @@
+from test.profiler import profile_test
 from structs.list.double.double_list import DoubleList
 
 def test_zeroed_double_list() -> None:
@@ -19,6 +20,7 @@ def test_double_list_insertion() -> None:
   assert double_list.is_empty() is False
   assert double_list.calc_size() == 5
 
+@profile_test
 def test_double_list_1m_items_insertion() -> None:
   max_number = 10**6
   double_list = DoubleList[int]()
@@ -116,7 +118,7 @@ def test_double_list_delete_all() -> None:
   double_list.insert(1)
   double_list.insert(2)
   double_list.insert(3)
- 
+
   double_list.print("before deletion")
 
   double_list.delete(1)

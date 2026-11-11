@@ -9,18 +9,19 @@ class GraphData:
 
 @dataclass
 class GraphLinkData:
-  distance: float #in kms
-
-class GraphLink:
-  from_node: GraphNode
-  to_node: GraphNode
-  data: GraphLinkData
+  # in kms
+  # a = origin node
+  # b = destination node
+  # distance = sqrt((b.lat - a.lat)^2 + (b.lon - a.lon)^2)
+  distance: float
 
 class GraphNode:
   tag: str
-  # TODO: relate graph data in every link
-  # data: dict
-  refs: list[GraphLink]
+
+  data: GraphData
+
+  # relation with other nodes tags
+  refs: dict[str, GraphLinkData]
 
 '''
 A -- B
