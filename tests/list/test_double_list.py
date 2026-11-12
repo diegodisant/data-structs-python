@@ -1,4 +1,4 @@
-from test.profiler import profile_test
+from memory_profiler import profile
 from structs.list.double.double_list import DoubleList
 
 def test_zeroed_double_list() -> None:
@@ -20,7 +20,7 @@ def test_double_list_insertion() -> None:
   assert double_list.is_empty() is False
   assert double_list.calc_size() == 5
 
-@profile_test
+@profile
 def test_double_list_1m_items_insertion() -> None:
   max_number = 10**6
   double_list = DoubleList[int]()

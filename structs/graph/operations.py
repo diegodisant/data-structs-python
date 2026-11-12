@@ -4,13 +4,13 @@ from structs.graph.node import GraphData
 
 class GraphInterface(ABC):
   @abstractmethod
-  def add(tag: str, data: GraphData) -> None:
+  def add(self, tag: str, data: GraphData) -> None:
     pass
 
   @abstractmethod
-  def rel(tag: str, ref_tags: list[str]) -> None:
+  def rel(self, tag: str, ref_tags: list[str]) -> None:
     pass
 
   @abstractmethod
-  def traverse(tags: list[str]) -> None:
+  def traverse(self, tags: list[str]) -> None:
     pass

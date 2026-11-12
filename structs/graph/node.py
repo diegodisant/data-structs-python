@@ -1,5 +1,6 @@
 from typing import Self
-from dataclasses import dataclass, asdict
+from math import sqrt, pow
+from dataclasses import dataclass
 
 @dataclass
 class GraphData:
@@ -15,6 +16,33 @@ class GraphLinkData:
   # distance = sqrt((b.lat - a.lat)^2 + (b.lon - a.lon)^2)
   distance: float
 
+  route: str # A -> B
+
+  def __init__(self,
+    at: GraphData,
+    to: GraphData,
+    at_tag: str,
+    to_tag: str,
+  ) -> None:
+    self.distance = self.calc_distance(at, to)
+    self.route = f'{at_tag} -> {to_tag}'
+
+  def calc_distance(self, at: GraphData, to: GraphData) -> float:
+    print(f'Calculating distance from {self.route}:')
+    print(f'origin: {at}')
+    print(f'destination: {to}')
+    print()
+
+    lat_sub = to.lat - at.lat
+    lat_factor = pow(lat_sub, 2)
+
+    lon_sub = to.lon - at.lon
+    lon_factor = pow(lon_sub, 2)
+
+    distance = sqrt(lat_factor + lon_factor)
+
+    return distance
+
 class GraphNode:
   tag: str
 
@@ -22,6 +50,10 @@ class GraphNode:
 
   # relation with other nodes tags
   refs: dict[str, GraphLinkData]
+
+  def __init__(self, tag: str, data: GraphData) -> None:
+    self.tag = tag
+    self.data = data
 
 '''
 A -- B
@@ -65,4 +97,11 @@ to: O(1 + N) # faster
 Find all neighboors of A
 from: O(degree(A))
 to: O(1) # super faster
+
+[A, B, C, D]
+
+traversal:
+[A, B]
+[B, C]
+[C, D]
 '''
