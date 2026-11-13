@@ -3,11 +3,11 @@ from structs.graph.operations import GraphInterface
 from structs.graph.error import CyclicNodeRefError, TagNotFoundError, RouteNotFoundError
 
 class Graph(GraphInterface):
-  tag_map: dict[str, GraphNode]
+  tag_map: dict[str, GraphNode] = {}
 
   def add(self, tag: str, data: GraphData) -> None:
-    print(f'Add node: {tag}')
-    print(f'with data: {data}')
+    # print(f'Add node: {tag}')
+    # print(f'with data: {data}')
 
     node = GraphNode(tag, data)
 
@@ -36,7 +36,7 @@ class Graph(GraphInterface):
     unexistent_tags_size = len(unexistent_tags)
 
     if unexistent_tags_size > 0:
-      raise TagNotFoundError(f'with inexistent tags {unexistent_tags}', 'rel')
+      raise TagNotFoundError(f'with unexistent tags {unexistent_tags}', 'rel')
 
     for ref_tag in ref_tags:
       to_node = self.tag_map[ref_tag]
@@ -57,11 +57,11 @@ class Graph(GraphInterface):
     unexistent_tags_size = len(unexistent_tags)
 
     if unexistent_tags_size > 0:
-      raise TagNotFoundError(f'with inexistent tags {unexistent_tags}', 'rel')
+      raise TagNotFoundError(f'with unexistent tags {unexistent_tags}', 'rel')
 
-    while len(tags) > 0:
-      at_tag = tags.pop(0)
-      to_tag = tags.pop(0)
+    while len(tags) > 1:
+      at_tag = tags[0]
+      to_tag = tags[1]
 
       at_node = self.tag_map[at_tag]
       link = at_node.refs.get(to_tag)
@@ -72,6 +72,12 @@ class Graph(GraphInterface):
       to_node = self.tag_map[to_tag]
 
       print(f'[traverse] Connecting routes: {link.route}')
+      print(f'[traverse] visited: {at_tag}')
       print(f'[traverse] distance: {link.distance}')
       print(f'[traverse] from: {at_node.data}')
       print(f'[traverse] to: {to_node.data}')
+
+      tags.pop(0)
+
+  # TODO: implement route(at_tag, to_tag) find the possible route between two tags
+  # raises RouteNotFound when cannot find the route

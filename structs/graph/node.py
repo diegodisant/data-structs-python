@@ -1,4 +1,4 @@
-from typing import Self
+from typing import Any, Self
 from math import sqrt, pow
 from dataclasses import dataclass
 
@@ -24,14 +24,13 @@ class GraphLinkData:
     at_tag: str,
     to_tag: str,
   ) -> None:
-    self.distance = self.calc_distance(at, to)
     self.route = f'{at_tag} -> {to_tag}'
+    self.distance = self.calc_distance(at, to)
 
   def calc_distance(self, at: GraphData, to: GraphData) -> float:
-    print(f'Calculating distance from {self.route}:')
+    print(f'Calculating distance from: {self.route}')
     print(f'origin: {at}')
     print(f'destination: {to}')
-    print()
 
     lat_sub = to.lat - at.lat
     lat_factor = pow(lat_sub, 2)
@@ -41,6 +40,9 @@ class GraphLinkData:
 
     distance = sqrt(lat_factor + lon_factor)
 
+    print(f'distance: {distance}')
+    print()
+
     return distance
 
 class GraphNode:
@@ -49,7 +51,7 @@ class GraphNode:
   data: GraphData
 
   # relation with other nodes tags
-  refs: dict[str, GraphLinkData]
+  refs: dict[str, GraphLinkData] = {}
 
   def __init__(self, tag: str, data: GraphData) -> None:
     self.tag = tag
