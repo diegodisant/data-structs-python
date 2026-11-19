@@ -51,11 +51,12 @@ class GraphNode:
   data: GraphData
 
   # relation with other nodes tags
-  refs: dict[str, GraphLinkData] = {}
+  refs: dict[str, GraphLinkData]
 
   def __init__(self, tag: str, data: GraphData) -> None:
     self.tag = tag
     self.data = data
+    self.refs = {}
 
 '''
 A -- B

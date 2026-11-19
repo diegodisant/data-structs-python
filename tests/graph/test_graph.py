@@ -135,4 +135,4 @@ def test_traverse() -> None:
   graph.rel('F', ['D', 'E'])
   graph.rel('D', ['E'])
 
-  graph.traverse(['B', 'E'])
+  graph.traverse(['A', 'B', 'C', 'D', 'E'])

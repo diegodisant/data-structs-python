@@ -48,7 +48,7 @@ class Graph(GraphInterface):
         ref_tag,
       )
 
-      at_node.refs[to_node.tag] = link_data
+      at_node.refs[ref_tag] = link_data
 
   def traverse(self, tags: list[str]) -> None:
     print(f'Traversing with following route: {' -> '.join(tags)}')
