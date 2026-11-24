@@ -21,7 +21,7 @@ test-single test_name:
 
 # Run tests with coverage report
 test-coverage:
-    {{python}} -m pytest --cov=structs tests/
+    {{python}} -m pytest --cov=structs --cov-report=html tests/
 
 # Run a test under the memory profiler, e.g. `just test-memory list/test_single_list test_search_in_1m_items`
 test-memory test_path test_name:
@@ -32,7 +32,7 @@ lint:
     {{python}} -m pylint --recursive=y structs tests
 
 # Open a cProfile .prof file in snakeviz, e.g. `just profile-open test_binary_tree`
-profile-open test_name:
+open-profile test_name:
     {{python}} -m snakeviz profiling/{{test_name}}.prof
 
 # Install pinned dependencies into the active environment

@@ -31,6 +31,37 @@ just test-coverage                              # run tests with a coverage repo
 just test-memory <test_path> <test_name>        # run a test under the memory profiler
 ```
 
+### Current Coverage (92%)
+
+![coverage](./docs/coverage.png)
+
+## Profiling
+
+Profile at: `tests/struct/test_struct.py`
+
+```python
+from tests.profiler import profile_test
+
+@profile_test
+def benchmark_test() -> None:
+  # some code stub
+  pass
+```
+
+Run your test
+
+```sh
+just test-single benchmark_test
+```
+
+Open your profile
+
+```sh
+just open-profile benchmark_test
+```
+
+![benchmark profile](./docs/profiling.png)
+
 ## Data Structures
 
 Every data structure covered here, with the module that implements it and its core operations:
