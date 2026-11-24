@@ -71,20 +71,37 @@ class BinaryTree[T](TreeInterface[T], Printable):
   def traverse(
     self,
     order: TraverseOrder = TraverseOrder.IN_ORDER,
-    node: TreeNode | None = None
+    node: TreeNode | None = None,
   ) -> Generator[T]:
-    node = self.root_node
+    if node is None:
+      node = self.root_node
 
-    if order == TraverseOrder.IN_ORDER:
-      node = self.side_left_node
-
-    if order == TraverseOrder.POST_ORDER:
-      node = self.side_right_node
-
-    while node is not None:
+    if order == TraverseOrder.PRE_ORDER:
       yield node.value
 
-      node = node.backref_node
+      if node.left_node is not None:
+        yield from self.traverse(order, node.left_node)
+
+      if node.right_node is not None:
+        yield from self.traverse(order, node.right_node)
+
+    if order == TraverseOrder.IN_ORDER:
+      if node.left_node is not None:
+        yield from self.traverse(order, node.left_node)
+
+      yield node.value
+
+      if node.right_node is not None:
+        yield from self.traverse(order, node.right_node)
+
+    if order == TraverseOrder.POST_ORDER:
+      if node.left_node is not None:
+        yield from self.traverse(order, node.left_node)
+
+      if node.right_node is not None:
+        yield from self.traverse(order, node.right_node)
+
+      yield node.value
 
   def calc_size(self) -> int:
     return self.nodes_counter
