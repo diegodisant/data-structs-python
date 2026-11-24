@@ -1,6 +1,8 @@
-from typing import Any, Self
 from math import sqrt, pow
 from dataclasses import dataclass
+from typing import Self
+
+from structs.copyable import Copyable
 
 @dataclass
 class GraphData:
@@ -18,14 +20,23 @@ class GraphLinkData:
 
   route: str # A -> B
 
+  visited: bool
+
+  at_tag: str
+
+  to_tag: str
+
   def __init__(self,
     at: GraphData,
     to: GraphData,
     at_tag: str,
     to_tag: str,
   ) -> None:
+    self.at_tag = at_tag
+    self.to_tag = to_tag
     self.route = f'{at_tag} -> {to_tag}'
     self.distance = self.calc_distance(at, to)
+    self.visited = False
 
   def calc_distance(self, at: GraphData, to: GraphData) -> float:
     print(f'Calculating distance from: {self.route}')
@@ -45,7 +56,7 @@ class GraphLinkData:
 
     return distance
 
-class GraphNode:
+class GraphNode(Copyable):
   tag: str
 
   data: GraphData
@@ -58,6 +69,12 @@ class GraphNode:
     self.data = data
     self.refs = {}
 
+  def copy(self) -> Self: # type: ignore
+    node = GraphNode(self.tag, self.data)
+
+    node.refs = self.refs
+
+    return node # type: ignore
 '''
 A -- B
 |    |

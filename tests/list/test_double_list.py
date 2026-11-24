@@ -20,7 +20,6 @@ def test_double_list_insertion() -> None:
   assert double_list.is_empty() is False
   assert double_list.calc_size() == 5
 
-@profile
 def test_double_list_1m_items_insertion() -> None:
   max_number = 10**6
   double_list = DoubleList[int]()

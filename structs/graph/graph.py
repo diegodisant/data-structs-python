@@ -2,6 +2,9 @@ from structs.graph.node import GraphNode, GraphData, GraphLinkData
 from structs.graph.operations import GraphInterface
 from structs.graph.error import CyclicNodeRefError, TagNotFoundError, RouteNotFoundError
 
+VISITED = True
+UNVISITED = False
+
 class Graph(GraphInterface):
   tag_map: dict[str, GraphNode] = {}
 
@@ -79,5 +82,87 @@ class Graph(GraphInterface):
 
       tags.pop(0)
 
-  # TODO: implement route(at_tag, to_tag) find the possible route between two tags
-  # raises RouteNotFound when cannot find the route
+  def route(self, from_tag: str, to_tag: str) -> list[str]:
+    from_node = self.tag_map.get(from_tag)
+
+    if from_node is None:
+      raise TagNotFoundError(from_tag, 'route')
+
+    if to_tag not in self.tag_map:
+      raise TagNotFoundError(from_tag, 'route')
+
+    target_found = False
+    selected_route: list[str] = [ from_tag ]
+    traverse_queue: dict[str, bool] = { from_tag: False }
+
+    current_node = from_node.copy()
+    next_queue_node: GraphNode | None = None
+
+    target_link: GraphLinkData | None = None
+    current_link: GraphLinkData | None = None
+
+    while not target_found:
+      target_link = current_node.refs.get(to_tag)
+
+      if target_link is not None:
+        target_found = True
+
+        selected_route.append(to_tag)
+
+        continue
+
+      current_link = self.get_next_unvisited_link(current_node.refs)
+
+      if current_link is not None:
+        current_node = self.tag_map[current_link.to_tag]
+
+        current_link.visited = True
+
+        selected_route.append(current_node.tag)
+
+        continue
+
+      traverse_queue[current_node.tag] = VISITED
+
+      next_queue_node = self.get_next_unvisited_node(traverse_queue)
+
+      selected_route = [ from_tag ]
+
+      if next_queue_node is None:
+        raise RouteNotFoundError(f'{from_tag} -> {to_tag}', 'route')
+
+      current_node = next_queue_node
+
+    return selected_route
+
+  def get_next_unvisited_link(self, refs: dict[str, GraphLinkData]) -> GraphLinkData | None:
+    if not refs:
+      return None
+
+    unvisited_links: list[GraphLinkData] = [
+      link
+      for link in refs.values()
+      if link.visited == UNVISITED
+    ]
+
+    if not unvisited_links:
+      return None
+
+    first_link = unvisited_links[0]
+
+    return first_link
+
+  def get_next_unvisited_node(self, queue: dict[str, bool]) -> GraphNode | None:
+    unvisited_tags: list[str] = [
+      tag
+      for tag, links_visited in queue.items()
+      if links_visited == UNVISITED
+    ]
+
+    if not unvisited_tags:
+      return None
+
+    first_tag = unvisited_tags[0]
+    first_node = self.tag_map[first_tag]
+
+    return first_node

@@ -14,3 +14,7 @@ class GraphInterface(ABC):
   @abstractmethod
   def traverse(self, tags: list[str]) -> None:
     pass
+
+  @abstractmethod
+  def route(self, from_tag: str, to_tag: str) -> list[str]:
+    pass

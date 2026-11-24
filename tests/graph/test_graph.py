@@ -1,7 +1,5 @@
 import pytest
 
-from tests.profiler import profile_test
-
 from structs.graph import Graph, GraphData, CyclicNodeRefError, TagNotFoundError, RouteNotFoundError
 
 def build_graph_data(lat: float, lon: float, address: str) -> GraphData:
@@ -27,7 +25,6 @@ def test_add() -> None:
 
   assert graph_tags == expected_tags
 
-@profile_test
 def test_add_1m() -> None:
   graph = Graph()
   gen_limit = 10**6
@@ -102,7 +99,6 @@ def test_traverse_unexistent_ref_tags() -> None:
   with pytest.raises(TagNotFoundError):
     graph.traverse(['A', 'B', 'C', 'D'])
 
-
 def test_traverse_route_not_found() -> None:
   graph = Graph()
 
@@ -117,8 +113,6 @@ def test_traverse_route_not_found() -> None:
   with pytest.raises(RouteNotFoundError):
     graph.traverse(['A', 'B', 'C', 'D'])
 
-
-# TODO: fix algo
 def test_traverse() -> None:
   graph = Graph()
 
@@ -136,3 +130,40 @@ def test_traverse() -> None:
   graph.rel('D', ['E'])
 
   graph.traverse(['A', 'B', 'C', 'D', 'E'])
+
+def test_route_not_found() -> None:
+  graph = Graph()
+
+  graph.add('A', build_graph_data(0, 0, 'Address A'))
+  graph.add('B', build_graph_data(1, 1, 'Address B'))
+  graph.add('C', build_graph_data(2, 2, 'Address C'))
+  graph.add('D', build_graph_data(3, 3, 'Address D'))
+  graph.add('E', build_graph_data(4, 4, 'Address E'))
+  graph.add('F', build_graph_data(5, 5, 'Address F'))
+
+  graph.rel('A', ['B', 'D'])
+  graph.rel('B', ['C'])
+  graph.rel('D', ['E', 'F'])
+
+  with pytest.raises(RouteNotFoundError):
+    graph.route('B', 'E')
+
+def test_route_found() -> None:
+  graph = Graph()
+
+  graph.add('A', build_graph_data(0, 0, 'Address A'))
+  graph.add('B', build_graph_data(1, 1, 'Address B'))
+  graph.add('C', build_graph_data(2, 2, 'Address C'))
+  graph.add('D', build_graph_data(3, 3, 'Address D'))
+  graph.add('E', build_graph_data(4, 4, 'Address E'))
+  graph.add('F', build_graph_data(5, 5, 'Address F'))
+
+  graph.rel('A', ['B', 'D'])
+  graph.rel('B', ['C'])
+  graph.rel('D', ['E', 'F'])
+
+  expected_route = ['A', 'D', 'E']
+
+  route = graph.route('A', 'E')
+
+  assert route == expected_route
