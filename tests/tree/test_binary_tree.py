@@ -1,5 +1,6 @@
+import pytest
 from random import randint
-from tests.profiler import profile_test
+
 from structs.tree import BinaryTree
 from structs.tree.operations import TraverseOrder
 
@@ -101,7 +102,7 @@ def test_binary_tree_post_order_traverse() -> None:
 
   assert expected_traversal == current_traversal
 
-
+@pytest.mark.skip(reason='used in benchmark testing for profiling')
 def test_traverse_in_order_1k_items() -> None:
   tree = BinaryTree[int]()
 

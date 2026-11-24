@@ -1,3 +1,5 @@
+import pytest
+
 from structs.stack import Stack
 
 def test_pop_empty_stack() -> None:
@@ -31,6 +33,7 @@ def test_stack() -> None:
   assert top_value is not None
   assert top_value == 1
 
+@pytest.mark.skip(reason='used in benchmark testing for profiling')
 def test_stack_with_1m_elements() -> None:
   last_value = 0
   numbers_till = 10**6

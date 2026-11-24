@@ -1,3 +1,5 @@
+import pytest
+
 from structs.queue import Queue
 
 def test_dequeue_empty() -> None:
@@ -58,6 +60,7 @@ def test_queue_at_end() -> None:
 
   assert simple_queue.at_end() == 5
 
+@pytest.mark.skip(reason='used in benchmark testing for profiling')
 def test_queue_with_1m_elements() -> None:
   last_value = 0
   numbers_till = 10**6

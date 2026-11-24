@@ -25,6 +25,7 @@ def test_add() -> None:
 
   assert graph_tags == expected_tags
 
+@pytest.mark.skip(reason='used in benchmark testing for profiling')
 def test_add_1m() -> None:
   graph = Graph()
   gen_limit = 10**6

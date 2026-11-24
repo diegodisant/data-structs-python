@@ -9,7 +9,8 @@ Learning Data Structures in Python
 
 ```sh
 pyenv install 3.13.1t
-virtualenv -p python3.13.1 venv
+virtualenv -p python3.13.1 .venv
+source .venv/bin/activate
 pip3 install requirements.txt
 ```
 
@@ -243,3 +244,10 @@ graph.traverse(['A', 'B'])  # walks hop by hop, printing each link's distance
 Relating raises [`structs/graph/error.py`](structs/graph/error.py) errors: `CyclicNodeRefError` (a node relating to itself), `TagNotFoundError` (unknown tag) and `RouteNotFoundError` (a route step with no link).
 
 Tests live in [`tests/`](tests/), mirroring the `structs/` layout; profiling helpers are in [`profiling/`](profiling/) and [`tests/profiler.py`](tests/profiler.py).
+
+## Operation Complexity
+
+Every operation of every data structure analyzed — expected O time, best in-place
+improved O time, and justification — lives in
+[`docs/complexity.md`](docs/complexity.md), with one comparison chart per data
+structure in [`docs/charts/`](docs/charts/).

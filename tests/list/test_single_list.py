@@ -1,3 +1,5 @@
+import pytest
+
 from structs.list.single import SingleList
 
 def test_zeroed_single_list() -> None:
@@ -39,6 +41,7 @@ def test_single_list_contains_failed() -> None:
 
   assert single_list.contains(-1) is False
 
+@pytest.mark.skip(reason='used in benchmark testing for profiling')
 def test_search_in_1m_items() -> None:
   seeked_number = 2
   single_list = SingleList[int]()

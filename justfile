@@ -13,7 +13,7 @@ default:
 
 # Run the whole test suite
 test:
-    {{python}} -m pytest -s -vv tests/
+    {{python}} -m pytest tests/
 
 # Run a single test by name, e.g. `just test-single test_search_in_1m_items`
 test-single test_name:
